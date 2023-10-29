@@ -1,0 +1,174 @@
+##Task 1
+
+#ArrayStack Class
+class ArrayStack:
+  def __init__(self):
+    self.stack = []
+    self.topIdx = -1
+
+  def push(self, elem):
+    self.stack.append(elem)
+    self.topIdx += 1
+
+  def pop(self):
+    val = self.stack[self.topIdx]
+    self.stack = self.stack[:-1]
+    self.topIdx -= 1
+    return val
+
+  def peek(self):
+    return self.stack[self.topIdx]
+
+  #stackChecker
+  def printStack(self):
+    print(self.stack)
+
+  def positionOf(self, e, exp):
+    c = 1
+    idx = 0
+    for item in exp:
+      if item == e:
+        idx = c
+      c += 1
+    return idx
+
+  def isEmpty(self):
+    if len(self.stack) == 0:
+      return True
+
+#Balancing
+exp1 = "1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14"
+stack1 = ArrayStack()
+
+for idx in range(len(exp1)):
+  if exp1[idx] in "({[":
+    stack1.push(exp1[idx])
+  else:
+    if exp1[idx] in ")}]":
+      if stack1.isEmpty():
+        print("The expression is NOT correct")
+        print(f"Error at character # {idx+1}. '{exp1[idx]}'- not opened.")
+        break
+      else:
+        if exp1[idx] == ")":
+          x = stack1.pop()
+          if x != "(":
+            print("The expression is NOT correct")
+            print(f"Error at character # {idx+1}. '{exp1[idx]}'- not closed.")
+            break
+        elif exp1[idx] == "}":
+          x = stack1.pop()
+          if x != "{":
+            print("The expression is NOT correct")
+            print(f"Error at character # {idx+1}. '{exp1[idx]}'- not closed.")
+            break
+        elif exp1[idx] == "]":
+          x = stack1.pop()
+          if x != "[":
+            print("The expression is NOT correct")
+            print(f"Error at character # {idx+1}. '{exp1[idx]}'- not closed.")
+            break
+if stack1.stack == []:
+  print("The expression is correct")
+
+
+
+##Task 2
+
+#Linked List Stack
+class Node:
+  def __init__(self, val, next):
+    self.val = val
+    self.next = next
+
+class LinkedListStack:
+  def __init__(self):
+    self.head = None
+
+  def push(self, element):
+    if self.head == None:
+      self.head = Node(element, None)
+    else:
+      newNode = Node(element, None)
+      newNode.next = self.head
+      self.head = newNode
+
+
+  def peek(self):
+    return self.head
+
+  def pop(self):
+    temp = self.head
+    self.head = self.head.next
+    return temp
+    temp.next = None
+    temp = None
+
+  def positionOf(self, e, exp):
+    c = 1
+    idx = 0
+    x = self.head
+    while x != None:
+      if x.val == e:
+        idx = c
+      c += 1
+      x = x.next
+    return idx
+
+  def isEmpty(self):
+    c = 0
+    x = self.head
+    while x != None:
+      c += 1
+      x = x.next
+    
+    if c == 0:
+      return True
+    else:
+      return False
+
+  def printStack(self):
+    x = self.head
+    while x != None:
+      print(x.val)
+      x = x.next
+
+    
+  
+exp2 = "1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14"
+Stack2 = LinkedListStack()
+
+for idx in range(len(exp2)):
+  if exp2[idx] in "({[":
+    Stack2.push(exp2[idx])
+
+  else:
+    if exp2[idx] in ")}]":
+      if Stack2.isEmpty():
+        print("The expression is NOT correct")
+        print(f"Error at character # {idx+1}. '{exp2[idx]}'- not opened.")
+        break
+      else:
+        if exp2[idx] == ")":
+          x = Stack2.pop()
+          if x.val != "(":
+            print("The expression is NOT correct")
+            print(f"Error at character # {idx+1}. '{exp2[idx]}'- not closed.")
+            break
+
+        elif exp2[idx] == "}":     
+          x = Stack2.pop()
+          if x.val != "{":
+            print("The expression is NOT correct")
+            print(f"Error at character # {idx+1}. '{exp2[idx]}'- not closed.")
+            break
+
+        elif exp2[idx] == "]":     
+          x = Stack2.pop()
+          if x.val != "[":
+            print("The expression is NOT correct")
+            print(f"Error at character # {idx+1}. '{exp2[idx]}'- not closed.")
+            break
+
+if Stack2.isEmpty():
+  print("The expression is correct.")

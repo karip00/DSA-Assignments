@@ -1,0 +1,107 @@
+###Task 1
+
+class KeyIndex:
+  def __init__(self, a):
+    self.a = a
+    self.k = self.createAux(self.findMin())
+  
+  def search(self,val):
+    min = self.findMin()
+    max = self.findMax()
+    absMin = abs(min)
+    if val > max or val < min:
+      return False
+    else:
+      if min < 0:
+        if self.k[val+absMin] != 0:
+          return True
+        else:
+          return False
+      else:
+        if self.k[val+absMin] != 0:
+          return True
+        else:
+          return False
+
+  def sort(self):
+    min = self.findMin()
+    absMin = abs(min)
+    if min < 0:
+      for idx in range(len(self.k)):
+        if self.k[idx] != 0:
+          for times in range(self.k[idx]):
+            print(idx-absMin)
+    else:
+      for idx in range(len(self.k)):
+        if self.k[idx] != 0:
+          for times in range(self.k[idx]):
+            print(idx)
+      
+  def findMax(self):
+    max = -9999999999
+    for num in self.a:
+      if num > max:
+        max = num
+    return max
+
+  def findMin(self):
+    min = 999999999
+    for num in self.a:
+      if num < min:
+        min = num
+    return min
+
+  def createAux(self, min):
+    max = self.findMax()
+    if min >= 0:
+      aux = [0]*(max+1)
+
+      for num in self.a:
+        aux[num] += 1
+    else:
+      absMin = abs(min)
+      aux = [0]*(max+absMin+1)
+      for num in self.a:
+        aux[num+absMin] += 1
+    return aux
+
+arr = [9,1,7,-2,8,5,-11,12,0]
+kI = KeyIndex(arr)
+kI.search(13)
+kI.sort()
+
+
+
+###Task 2
+def hash(arr):
+  vow = 'AEIOU'
+  num = '0123456789'
+
+  aux = [None]*9
+  c = 0
+  dSum = 0
+  for string in arr:
+    for char in string:
+      if char not in vow and char not in num:
+        c += 1               #number of consonants
+      elif char in num:
+        dSum += int(char)    #sum of digits
+
+    hashIdx = ((c*24) + dSum)%9
+
+    if aux[hashIdx] == None:
+      aux[hashIdx] = string
+    else:
+      start = hashIdx
+      for i in range(len(aux)):
+        if aux[start] == None:
+          aux[start] = string
+          break
+        elif start >= len(aux):
+          start %= len(aux)
+        else:
+          start += 1
+  return aux 
+
+x = ['BK8YNPBYMMJ','7BYH5099XH0','1M2583U8CHP','O035Z2PWLHU','15RQFUFOG4Y','PHKKFNZX8VS','R0NE9HU84PN','ZTORYKOGOVY','ST1E89B8A32']
+print(hash(x))

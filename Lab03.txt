@@ -1,0 +1,133 @@
+#Task 1i
+class Node:
+  def __init__(self, val, pL, nL):
+    self.val = val
+    self.pL = pL
+    self.nL = nL
+
+#Task 1ii
+class DoublyList:
+
+  #Task 2.1a
+  def __init__(self, a):
+    self.headNode = Node(None,None,None)
+    tailNode = None
+
+    for num in a:
+      newNode = Node(num, None, None)
+      if self.headNode.nL == None:
+        self.headNode.nL = newNode
+        tailNode = newNode
+        tailNode.pL = self.headNode
+      else:
+        tailNode.nL = newNode
+        temp = tailNode
+        tailNode = newNode
+        tailNode.pL = temp
+
+    #making it circular    
+    tailNode.nL = self.headNode
+    self.headNode.pL = tailNode
+
+  #Task 2.2
+  def showList(self):
+    x = self.headNode.nL
+    while x != self.headNode:
+      print(x.val)
+      x = x.nL
+
+  #Task 2.3
+  def insert(self, newElement):
+    x = self.headNode.nL
+
+    while x != self.headNode:
+      if x.val == newElement:
+        print("Key already exists")
+      elif x == self.headNode.pL:
+        break 
+      x = x.nL
+
+    newNode = Node(newElement, x, self.headNode) #connecting prevNode and headNode with newNode
+    x.nL = newNode
+    '''newNode.nL = self.headNode
+    newNode.pL = x'''
+    self.headNode.pL = x.nL
+  
+
+  #Task 2.4
+  def insert2(self, newElement, index):
+
+    length = 0
+    x = self.headNode.nL
+    while x != self.headNode:
+      length += 1
+      x = x.nL
+    
+    x = self.headNode.nL
+    idx = 0
+    while x != self.headNode:
+      if x == None:
+        print("Empty List")
+      else:
+        if idx == index:
+          newNode = Node(newElement, x.pL.nL, x)
+          temp = x
+          x.pL.nL = newNode
+          x.pL = newNode
+      idx += 1
+      x = x.nL
+
+  #Task 2.5
+  def remove(self, index):
+
+    length = 0
+    x = self.headNode.nL
+    while x != self.headNode:
+      length += 1
+      x = x.nL
+
+    if index < 0 or index >= length:
+      print("Invalid Index")
+    else:
+      idx = 0
+      x = self.headNode.nL
+
+      while x != self.headNode:
+        if x == None:
+          print("Empty List")
+        else:
+          if idx == index:
+            temp = x.nL
+            x.pL.nL = temp
+            temp.pL = x.pL
+            x = None
+            break
+        idx += 1
+        x = x.nL
+
+  #Task 2.6        
+  def removeKey(self, deleteKey):
+    x = self.headNode.nL
+    while x != self.headNode:
+      if x == None:
+        print("Empty List")
+      else:
+        if x.val == deleteKey:
+          temp = x.nL
+          x.pL.nL = temp
+          temp.pL = x.pL
+          x = None
+          break
+      x = x.nL
+      
+
+
+  
+#Tester
+a = [10,20,30,40,50]
+a1 = DoublyList(a)
+a1.insert(60)
+a1.insert2(60,2)
+a1.remove(7)
+a1.removeKey(50)
+a1.showList()

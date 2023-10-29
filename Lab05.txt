@@ -1,0 +1,157 @@
+###Task 1 (Very Easy)
+
+#1(a)
+
+def factorial(n):
+
+  if n == 0 or n == 1:
+    return 1
+  else:
+    return n * factorial(n-1)
+
+#1(b)
+
+def fibonacci(n):
+
+  if n == 0:
+    return 0
+  elif n == 1:
+    return 1
+  else:
+    return fibonacci(n-1) + fibonacci(n-2)
+
+#1(c)
+
+def printArray(arr, i):  #iterator(i)
+
+  if i >= len(arr):
+    return
+  else:
+    print(arr[i])
+    return printArray(arr, i+1)
+
+#1(d)
+
+def pow(a, n): #format: a^n
+  
+  if n == 0:
+    return 1
+  else:
+    return a * pow(a, n-1)
+
+
+###Task 2 (Easy)
+
+#2(a) -- Converting to binary from decimal
+
+def binConverter(n):
+  if n == 0:
+    return ""
+  else:
+    temp = str(n % 2)
+    return temp + str(binConverter(n//2))
+
+#2(b) -- Sum of elements of Linked List
+
+def LLsum(head):    
+  if head == None:
+    return 0
+  else:
+    return head.val + LLsum(head.next)
+
+#2(c) -- Reverse printing the elements of a linked list
+
+def LLrevPrint(head):
+  if head == None:
+    return
+  else:
+    print(LLrevPrint(head.next))
+    return head.intElem
+
+
+###Task 3 (Medium)
+
+def hocBuilder(height):
+  if height == 0:
+    return 0
+  elif height == 1:
+    return 8
+  else:
+    return 5 + hocBuilder(height-1)
+
+
+###Task 4 (Hard)
+
+#4(a)
+
+def pattern1(n, i, result):     #iterator (i)
+
+  if i > n:
+    return 
+  else:
+    result += str(i)
+    print(result)
+    return pattern1(n,i+1,result)
+
+#4(b)
+
+def pattern2(n, i, a):  #a and b empty initially, b will be the result to return
+  if i > n:
+    return
+  else:
+    b = ""
+    a += str(i)
+    b += (n-i)*" " + a
+    print(b)
+    return pattern2(n, i+1, a)
+
+
+###Task 5 (Very Hard)
+
+class FinalQ: 
+ def print(self,array,idx): 
+  if idx < len(array): 
+    profit = self.calcProfit(array[idx])
+    print(f"Investment: {array[idx]}; Profit: {profit}")
+    self.print(array, idx+1)
+     
+
+  
+ def calcProfit(self,investment): 
+  if investment == 25000:
+    return 0.0
+  else:
+    p_100k = 75000/100
+    p_100k = p_100k +p_100k +p_100k +p_100k + (p_100k)/2
+    totalProfit = investment - 100000
+    totalProfit /= 100
+    totalProfit = totalProfit +totalProfit +totalProfit +totalProfit +totalProfit +totalProfit +totalProfit +totalProfit 
+    totalProfit += p_100k
+    return totalProfit
+  
+#Tester for Task 5
+array=[25000,100000,250000,350000] 
+f = FinalQ() 
+f.print(array,0)
+
+
+
+#Tester for Easy to Hard Tasks
+print(f"Factorial: {factorial(3)}")
+print()
+print(f"Fibonacci: {fibonacci(8)}")
+print()
+print("Array elements:")
+print()
+printArray([1,2,3,5],0)
+print()
+print(f"Power: {pow(2, 3)}")
+print()
+print(f"Binary: {binConverter(7)}")
+print()
+print(f"hocBuilder: {hocBuilder(5)}")
+print()
+pattern1(5,1,"")
+print()
+pattern2(5,1,"")
+print()

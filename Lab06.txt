@@ -1,0 +1,180 @@
+###Task 1
+
+def minIdxfinder(arr, j, minIdx):
+  if j >= len(arr):
+    return minIdx
+  else:
+    if arr[j] < arr[minIdx]:
+      minIdx = j
+    return minIdxfinder(arr, j+1, minIdx)
+
+def selectionSort(arr, i):
+  if i >= len(arr):
+    return arr
+  else:
+    mindex = minIdxfinder(arr, i+1, i)
+    minVal = arr[mindex]
+    arr[mindex] = arr[i]
+    arr[i] = minVal
+    return selectionSort(arr, i+1)
+
+
+###Task 2
+
+def insertionSort(arr,i):
+  if i <= 1:
+      return arr
+  else: 
+    insertionSort(arr, i-1)
+    j = i-2
+    key = arr[i-1]
+    while j >= 0 and key < arr[j]:
+      arr[j+1] = arr[j]
+      j = j-1 
+    arr[j+1] = key
+
+
+###Linked List class for Task 3 and 4
+
+class Node:
+  def __init__(self, val, next):
+    self.val = val
+    self.next = next
+
+class linkedList:
+  def __init__(self, arr):
+    self.head = None
+    tail = None
+
+    for num in arr:
+      newNode = Node(num, None)
+      if self.head == None:
+        self.head = newNode
+        tail = newNode
+      else:
+        tail.next = newNode
+        tail = newNode
+  
+  def printList(self):
+    head = self.head
+    while head != None:
+      print(head.val)
+      head = head.next
+
+  def lenOf(self):
+    head = self.head
+    length = 0
+    while head != None:
+      length += 1
+      head = head.next
+    return length
+
+  def valOf(self,idx):
+    return self.nodeAt(idx).val
+
+  def nodeAt(self, idx):
+    c = 0
+    x = self.head
+    while x != None:
+      if idx == c:
+        return x
+      c += 1
+      x = x.next
+
+
+###Task 3
+
+def bubbleSort(ll):
+  x = ll.head
+  for i in range(ll.lenOf()-1, -1, -1):
+    for j in range(0, i):
+      if ll.valOf(j) > ll.valOf(j+1):
+        temp = ll.valOf(j)
+        ll.nodeAt(j).val = ll.nodeAt(j+1).val
+        ll.nodeAt(j+1).val = temp
+  return ll
+
+###Task 4
+
+def selectionSort(ll):
+  
+  for i in range(ll.lenOf()):
+    minIdx = i
+    minVal = ll.valOf(i)
+    for j in range(i+1, ll.lenOf()):
+      if minVal > ll.valOf(j):
+        minIdx = j
+        minVal = ll.valOf(j)
+    ll.nodeAt(minIdx).val = ll.nodeAt(i).val
+    ll.nodeAt(i).val = minVal
+  return ll
+
+###Linked List class for 5
+class Node:
+  def __init__(self, val, prev, next):
+    self.val = val
+    self.prev = prev
+    self.next = next
+
+class DoublyList:
+  def __init__(self, arr):
+    self.head = Node(None, None, None)
+    tail = None
+    
+    for num in arr:
+      newNode = Node(num, None, None)
+      if self.head.next == None:
+        self.head = newNode
+        tail = newNode
+        tail.prev = self.head
+      else:
+        tail.next = newNode
+        temp = tail
+        tail = newNode
+        newNode.prev = temp
+    tail.next = self.head
+    self.head.prev = tail
+
+
+###Task 5
+
+
+
+
+#Task 6
+def binSearch(arr, key, l, r):
+  if l > r:
+    return False
+  else:
+    mid = (l+r)//2
+    if key == arr[mid]:
+      return mid
+    elif key > arr[mid]:
+      return binSearch(arr, key, mid+1, r)
+    else:
+      return binSearch(arr, key, l, mid-1)
+
+###Task 7
+
+def fibonacci(n):
+  fib = [0]*(n+1)
+  fib[0] = 0
+  fib[1] = 1
+  for i in range(2, len(fib)):
+    fib[i] = fib[i-1] + fib[i-2]
+  return fib[n]
+
+###Tester 
+
+
+arr1 = [4,-2,7,1]
+print(binSearch(arr1, -2, 0, len(arr1)-1))
+print(fibonacci(5))
+print(selectionSort(arr1))
+print(insertionSort(arr1))
+
+arr2 = [4,3,-1,9]
+li = linkedList(arr2)
+bubbleSort(li)
+selectionSort(li)
+li.printList()

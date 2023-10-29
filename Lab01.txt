@@ -1,0 +1,193 @@
+#Task1
+def shiftLeft(source, k):
+    
+    i = 0
+    while i<(len(source)-k):
+        source[i] = source[i+k]
+        i+=1
+    
+    j = len(source) - 1   
+
+    while j>(len(source)-1-k):
+        source[j] = 0
+        j = j-1
+    return source
+
+
+#Task2
+def rotateLeft(source,k):
+    i = 0
+    temp = [0]*len(source)
+
+    while i<k:
+        temp[i] = source[i]
+        source[i] = source[i+k]
+        i+=1
+
+    j=k
+
+    while j<len(source)-k:
+        source[j] = source[j+k]
+        j = j+1
+    
+    l = len(source)-k
+    m = 0
+    while l<len(source):
+        source[l]=temp[m]
+        m+=1
+        l+=1
+    
+    return source
+
+
+#Task3
+def remove(source, size, idx):
+     i = 0
+     while i < size:
+        if i >= idx:
+            source[i] = source[i+1]
+        i+=1
+     return source  
+ 
+    
+#Task4
+def removeAll(source, size, element):
+    
+    
+    i = 0
+    while i < size:
+        if source[i] == element:
+            source[i] = 0
+        i+=1
+
+    j = 0
+    k = 0
+
+    while j < size:
+        if source[j] == 0:
+            k = j
+    
+            while k < size:
+                source[k] = source[k+1]
+                k+=1
+        j+=1
+
+    return source
+
+
+#Task5
+def splittingArray(A):
+    
+    i = 0
+    s1 = 0
+    s2 = 0
+    result = False
+
+
+    while i < len(A):
+    
+        s1 += A[i]
+        j = i + 1
+        while j < len(A):
+            s2 += A[j]
+            j += 1
+        
+        if s2 == s1:
+            result = True
+            
+        s2 = 0
+        i += 1
+    return result
+
+
+#Task6
+def squaredArray(n):
+    A = []
+    
+    i = 0
+    j = 1
+    
+    while i < n:
+        
+        p = 0
+        q = j
+        while p < (n-j):
+            A = A + [0]
+            p += 1
+            print(A)
+        while q > 0:
+            A = A + [q]
+            q -= 1
+            print(A)
+        i += 1
+        j += 1
+    return A
+
+
+#Task7
+def maxBunch(A):
+    
+    maxFreq = 0
+    x = 1
+    i = 0
+    
+    for idx in range(0, len(A)-1):
+        if A[idx] == A[idx+1]:
+            x += 1
+        else:
+            x = 1
+            
+        if x > maxFreq:
+            maxFreq = x
+    return maxFreq
+
+
+#Task8
+def repetition(A):
+    
+    i = 0
+    B = []
+    C = []
+    while i<len(A):
+        if A[i] not in B:
+            B += [A[i]]
+        i+=1   
+    
+    j = 1
+
+
+#Circular Array 
+#Task1
+def palindrome(A, size, start):
+    
+    x = start
+    y = (start+size-1)%len(A)
+    B = [0]*len(A)
+    i = 0
+    while i<size:
+        B[x%len(A)] = A[y%len(A)]
+        x+=1
+        y-=1
+        i+=1
+        
+    if A == B:
+        return True
+    else:
+        return False
+
+   
+#Task2
+def intersection(A,sizeA,startA,B,sizeB,startB):
+    
+    C = []
+    
+    i = 0
+    x = startA
+    
+    while  i < sizeA:
+        if A[x%len(A)] in B:
+            C+=[A[x%len(A)]]
+            
+        i+=1
+        x+=1
+    return C

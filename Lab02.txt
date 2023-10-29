@@ -1,0 +1,271 @@
+#Task 1i
+class Node:
+    def __init__(self, val, nL):
+        self.val = val
+        self.nL = nL
+    def printNode(self):
+        print(self.val,' ', self.nL)
+
+#Task 1ii       
+class linkedList:
+    def __init__(self, array):
+        self.headNode = None
+        tailNode = None
+        
+        for num in array:
+            newNode = Node(num, None)
+            if self.headNode == None:
+                self.headNode = newNode
+                tailNode = newNode
+            else:
+                tailNode.nL = newNode #linking nL of prev Node with newNode
+                tailNode = newNode
+    
+    #Task 2.1a           
+    def printList(self):
+        x = self.headNode
+        while x != None:
+            x.printNode()
+            x = x.nL
+
+    #Task 2.2      
+    def showList(self):
+        x = self.headNode
+        
+        if x == None:
+            print("Empty List")
+        else:
+            while x != None:
+                print(x.val)
+                x = x.nL
+    
+    #Task 2.3
+    def isEmpty(self):
+        x = self.headNode
+        result = False
+        
+        if x == None:
+            result = True
+        return result
+    
+    #Task 2.4
+    def clear(self):
+        self.headNode = None
+
+
+    #Task 2.5
+    def insert(self, newElement):
+        x = self.headNode
+        newNode = Node(newElement, None)
+        
+        c = 0
+        while x != None:
+            if x.val == newElement:
+                print("Key already exists")
+                return 
+            else:
+                c += 1
+            x = x.nL
+            
+            
+        x = self.headNode
+        i = 1
+        while i <= c:
+            if i == c:
+                x.nL = newNode
+            x = x.nL
+            i += 1
+    
+    #Task 2.6
+    def insert2(self, newElement,index):
+        x = self.headNode
+        if x == None:
+            print("Empty List")
+            
+        length = 0
+        while x != None:
+            length += 1
+            x = x.nL
+
+        if (index<0) or (index>length-1):
+            print("Invalid index")
+        else:
+            i = 0
+            x = self.headNode
+            newNode = Node(newElement, None)
+            while i < length:
+                if index == 0:
+                    if i == index:
+                        y = self.headNode
+                        self.headNode = newNode
+                        newNode.nL = y
+                if i == index-1:
+                    y = x.nL
+                    x.nL = newNode
+                    newNode.nL = y
+                i += 1
+                x = x.nL
+
+                
+    #Task 2.7            
+    def remove(self, deleteKey):
+        x = self.headNode
+        
+        if x == None:
+            print("Empty List")
+        else:
+            
+            length = 0
+            idx = 0           
+            while x != None:
+                if x.val == deleteKey:
+                    idx = length      #index of Key in the list
+                length += 1
+                x = x.nL
+
+            if idx == 0:                        #headNode == deleteKey hoile
+                self.headNode = self.headNode.nL
+                
+            elif idx == length-1:     #last index deleteKey hoile
+                x = self.headNode     
+                while x.nL.nL != None:
+                    x = x.nL
+                x.nL = None
+                
+            else:
+                x = self.headNode
+                i = 0
+                while x != None:
+                    if i == idx-1:
+                        x.nL = x.nL.nL
+                    i += 1
+                    x = x.nL
+                
+            
+            
+                    
+#Tester for Task 1 and 2            
+array = [10,20,30,40]
+LL1 = linkedList(array)
+LL1.clear()
+LL1.insert(40)
+LL1.insert2(50,0)
+LL1.remove(40)
+LL1.showList()
+LL1.isEmpty()
+
+
+
+#Task 3
+class Node:
+    def __init__(self, val, nL):
+        self.val = val
+        self.nL = nL
+        
+class LinkedList:
+    def __init__(self, array):
+        self.headNode = None
+        Tail = None
+        
+        for num in array:
+            newNode = Node(num, None)
+            if self.headNode == None:
+                self.headNode = newNode
+                Tail = newNode
+            else:
+                Tail.nL = newNode
+                Tail = newNode
+    
+
+    def showList(self):
+        x = self.headNode
+        
+        if x == None:
+            print("Empty List")
+        else:
+            while x != None:
+                print(x.val)
+                x = x.nL
+    
+    #Task 3.1       
+    def evenList(self):
+        x = self.headNode
+        eHead = None
+        eTail = None
+        
+        while x != None:
+            if x.val %2 == 0:
+                newNode = Node(x.val, None)
+                if eHead == None:
+                    eHead = newNode
+                    eTail = newNode
+                else:
+                    eTail.nL = newNode
+                    eTail = newNode
+            x = x.nL
+            
+        y = eHead
+        while y != None:
+            print(y.val,end = " ")
+            y = y.nL
+
+    
+     #Task 3.2
+     def inList(self, element):
+        x = self.headNode
+        result = False
+        
+        while x != None:
+            if x.val == element:
+                result = True
+            x = x.nL
+            
+        return result
+    
+
+    #Task 3.3
+    def revList(self):
+        x = self.headNode
+        newHead = None
+        
+        while x!= None:
+            nextNode = x.nL
+            x.nL = newHead
+            newHead = x
+            x = nextNode
+        self.headNode = newHead
+
+
+    #Task 3.4        
+    def sort(self):
+        x = self.headNode
+        next1 = None
+        
+        while x != None:
+            next1 = x.nL
+            while next1 != None:
+                if x.val > next1.val:
+                    x.val, next1.val = next1.val, x.val
+                next1 = next1.nL
+            x = x.nL
+                    
+            
+    #Task 3.5        
+    def sumofList(self):
+        x = self.headNode
+        summ = 0
+        while x != None:
+            summ += x.val
+            x = x.nL
+        print(summ)
+        
+        
+#Tester for Task 3        
+array = [1,2,5,3,8]
+a1 = LinkedList(array)
+a1.evenList()
+print(a1.inList(1))
+a1.sumofList()
+a1.revList()
+a1.sort()
+a1.showList()
